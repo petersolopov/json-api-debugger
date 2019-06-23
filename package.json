@@ -1,0 +1,20 @@
+{
+  "name": "json-api-debugger",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "build": "zip -r json_api_debugger.zip manifest.json icons src node_modules/kitsu-core/lib/index.mjs node_modules/preact/dist/preact.mjs node_modules/htm/dist/htm.mjs"
+  },
+  "keywords": [
+    "json api",
+    "chrome extension",
+    "logger"
+  ],
+  "author": "Peter Solopov <solopov.official@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "htm": "^2.1.1",
+    "kitsu-core": "^7.0.4",
+    "preact": "^8.4.2"
+  }
+}

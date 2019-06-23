@@ -1,4 +1,4 @@
-chrome.devtools.network.onRequestFinished.addListener(request => {
+export const onRequestFinishedCb = request => {
   const { content } = request.response;
 
   if (!content) {
@@ -19,4 +19,6 @@ chrome.devtools.network.onRequestFinished.addListener(request => {
       }
     });
   });
-});
+};
+
+chrome.devtools.network.onRequestFinished.addListener(onRequestFinishedCb);

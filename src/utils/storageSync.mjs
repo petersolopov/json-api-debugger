@@ -1,7 +1,7 @@
 // helpers to avoid callback hell
 
 const get = arg => {
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     chrome.storage.sync.get(arg, data => {
       resolve(data);
     });
@@ -9,7 +9,7 @@ const get = arg => {
 };
 
 const set = arg => {
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     chrome.storage.sync.set(arg, data => {
       resolve(data);
     });

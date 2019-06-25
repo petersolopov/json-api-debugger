@@ -18,5 +18,8 @@ jobs:
           paths:
             - ./node_modules
       - run:
+          name: lint
+          command: npm run lint && npm run prettier:check
+      - run:
           name: test
           command: npm test

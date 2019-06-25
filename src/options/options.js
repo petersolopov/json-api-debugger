@@ -46,7 +46,8 @@ class App extends Component {
     );
   };
 
-  render({ page }, { regexps = [] }) {
+  render(props, { regexps = [] }) {
+    // prettier-ignore
     return html`
       <div class="app">
         <${Header} />

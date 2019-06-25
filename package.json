@@ -4,7 +4,10 @@
   "description": "",
   "scripts": {
     "test": "node --experimental-modules tests/index.test.mjs",
-    "build": "zip -r json_api_debugger.zip manifest.json icons src node_modules/kitsu-core/lib/index.mjs node_modules/preact/dist/preact.mjs node_modules/htm/dist/htm.mjs"
+    "build": "zip -r json_api_debugger.zip manifest.json icons src node_modules/kitsu-core/lib/index.mjs node_modules/preact/dist/preact.mjs node_modules/htm/dist/htm.mjs",
+    "lint": "eslint --ext .mjs,.js src tests",
+    "prettier:check": "prettier --check src/**/* tests/**/*",
+    "prettier:write": "prettier --write src/**/* tests/**/*"
   },
   "keywords": [
     "json api",
@@ -19,6 +22,9 @@
     "preact": "^8.4.2"
   },
   "devDependencies": {
+    "babel-eslint": "^10.0.2",
+    "eslint": "^6.0.0",
+    "prettier": "1.18.2",
     "zora": "^3.0.1"
   }
 }

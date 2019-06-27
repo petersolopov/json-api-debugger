@@ -2,12 +2,12 @@ import { deserialise } from "../../node_modules/kitsu-core/lib/index.mjs";
 import { createQueryInfo } from "../utils/createQueryInfo.mjs";
 import storageSync from "../utils/storageSync.mjs";
 
-chrome.runtime.onInstalled.addListener(function() {
+export const onInstalledCb = () => {
   const regexps = ["/jsapi3/", "/api/edge/"];
   chrome.storage.sync.set({ regexps });
-});
+};
 
-chrome.runtime.onMessage.addListener(async ({ tabId, payload }) => {
+export const onMessageCb = async ({ tabId, payload }) => {
   const { regexps } = await storageSync.get("regexps");
   const { request, body, time: timeMs } = payload;
 
@@ -35,4 +35,7 @@ chrome.runtime.onMessage.addListener(async ({ tabId, payload }) => {
   } catch (e) {
     console.log(e);
   }
-});
+};
+
+chrome.runtime.onMessage.addListener(onMessageCb);
+chrome.runtime.onInstalled.addListener(onInstalledCb);

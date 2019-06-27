@@ -72,7 +72,7 @@ It would be nice to view in console the deserialized structure of JSON API respo
       region: {
         id: "2",
         type: "region",
-        name: "Moscow region"
+        name: "Moscow region",
         country: {
           id: "3",
           type: "country",

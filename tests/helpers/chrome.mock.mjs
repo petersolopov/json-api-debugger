@@ -2,6 +2,17 @@ import { copy } from "./utils.mjs";
 
 const TAB_ID = "tabId";
 
+const createFakeStorage = () => {
+  let store = {};
+
+  const set = data => (store = { ...store, ...data });
+  const get = () => store;
+
+  return { set, get };
+};
+
+export const fakeStorage = createFakeStorage();
+
 const chromeMock = {
   devtools: {
     inspectedWindow: {
@@ -14,6 +25,26 @@ const chromeMock = {
     }
   },
   runtime: {
+    sendMessage: () => {},
+    onInstalled: {
+      addListener: () => {}
+    },
+    onMessage: {
+      addListener: () => {}
+    }
+  },
+  storage: {
+    sync: {
+      set: (data, fn) => {
+        fakeStorage.set(data);
+        fn && fn(data);
+      },
+      get: (key, fn) => {
+        fn && fn(fakeStorage.get());
+      }
+    }
+  },
+  tabs: {
     sendMessage: () => {}
   }
 };

@@ -1,8 +1,11 @@
-# JSON API debugger chrome extension
-
+# JSON API debugger chrome extension [![CircleCI](https://circleci.com/gh/petersolopov/json-api-debugger.svg?style=svg)](https://circleci.com/gh/petersolopov/json-api-debugger)
 ![](./screenshot.png)
 
 JSON API is a specification for building APIs detailed at [JSONAPI.org.](https://jsonapi.org)
+
+## Install
+
+Install it from [Chrome Web Store](https://chrome.google.com/webstore/detail/json-api-debugger/cegnaocdodcebnffemedooiknbljkacl?hl=en-GB)
 
 ## Motivation
 
@@ -91,11 +94,15 @@ Google Chrome 60+
 
 ## Usage
 
-1. Install extension.
-2. Add rule (regexp) in options for your JSON API endpoint to catch it.
-3. View data in console (deserialized response, query info, etc.).
+1. [Install extension](https://chrome.google.com/webstore/detail/json-api-debugger/cegnaocdodcebnffemedooiknbljkacl?hl=en-GB)
+2. Add rule (regexp) in options for your JSON API endpoint to catch it
+3. View data in console (deserialized response, query info, etc.)
 
-## Build
+## Building for use
+
+Download the source code 
 
 1. Install dependencies `npm install`
 2. Zip chrome extension `npm run build`
+
+This will generate `json_api_debugger.zip` for use in Chromium browsers.

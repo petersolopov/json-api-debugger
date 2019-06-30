@@ -1,4 +1,4 @@
-# JSON API debugger chrome extension [![CircleCI](https://circleci.com/gh/petersolopov/json-api-debugger.svg?style=svg)](https://circleci.com/gh/petersolopov/json-api-debugger)
+# JSON API debugger chrome extension [![Build Status](https://travis-ci.org/petersolopov/json-api-debugger.svg?branch=master)](https://travis-ci.org/petersolopov/json-api-debugger)
 ![](./screenshot.png)
 
 JSON API is a specification for building APIs detailed at [JSONAPI.org.](https://jsonapi.org)

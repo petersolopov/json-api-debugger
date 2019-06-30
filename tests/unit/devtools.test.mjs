@@ -1,7 +1,7 @@
 import * as chrome from "./helpers/chrome.mock.mjs";
 
-import { test } from "../node_modules/zora/dist/bundle/index.mjs";
-import { onRequestFinishedCb } from "../src/devtools/devtools.mjs";
+import { test } from "../../node_modules/zora/dist/bundle/index.mjs";
+import { onRequestFinishedCb } from "../../src/devtools/devtools.mjs";
 import * as utils from "./helpers/utils.mjs";
 
 test("onRequestFinishedCb", t => {

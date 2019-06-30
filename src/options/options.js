@@ -53,13 +53,13 @@ class App extends Component {
         <${Header} />
         <form id="form">
           ${regexps.map(
-            (todo, index) => html`
+            (regexp, index) => html`
               <div>
                 <input
                   type="text"
                   placeholder="/(\d+)/jsonapi/"
-                  value=${todo}
-                  name=${"regex." + index}
+                  value=${regexp}
+                  name=${"regexp." + index}
                   onInput=${this.handleInputChange}
                 />
               </div>

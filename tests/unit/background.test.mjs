@@ -1,7 +1,10 @@
 import * as chrome from "./helpers/chrome.mock.mjs";
 
-import { test } from "../node_modules/zora/dist/bundle/index.mjs";
-import { onInstalledCb, onMessageCb } from "../src/background/background.mjs";
+import { test } from "../../node_modules/zora/dist/bundle/index.mjs";
+import {
+  onInstalledCb,
+  onMessageCb
+} from "../../src/background/background.mjs";
 import * as utils from "./helpers/utils.mjs";
 import { nonPassedRequest, passedRequest } from "./fixtures/requests.mjs";
 

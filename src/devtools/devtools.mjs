@@ -9,7 +9,7 @@ export const onRequestFinishedCb = request => {
     return;
   }
 
-  // getContext do not work in another context (e.g. in background script)
+  // getContent do not work in another context (e.g. in background script)
   request.getContent(body => {
     chrome.runtime.sendMessage({
       tabId: chrome.devtools.inspectedWindow.tabId,

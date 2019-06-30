@@ -13,3 +13,4 @@ yarn-error.log*
 # Misc
 .DS_Store
 json_api_debugger.zip
+tmp/

@@ -10,10 +10,9 @@ export const onInstalledCb = () => {
 export const onMessageCb = async ({ tabId, payload }) => {
   const { regexps } = await storageSync.get("regexps");
   const { request, body, time: timeMs } = payload;
+  const { url, method } = request;
 
-  const shouldLog = regexps.some(regexp =>
-    new RegExp(regexp).test(request.url)
-  );
+  const shouldLog = regexps.some(regexp => new RegExp(regexp).test(url));
 
   if (!shouldLog) {
     return;
@@ -22,11 +21,12 @@ export const onMessageCb = async ({ tabId, payload }) => {
   try {
     const parsedBody = JSON.parse(body);
     const deserialized = await deserialise(parsedBody);
-    const { pathname } = new URL(request.url);
-    const queryInfo = createQueryInfo(request.url);
+    const { pathname } = new URL(url);
+    const queryInfo = createQueryInfo(url);
+    const groupName = `${method} ${pathname}`;
 
     chrome.tabs.sendMessage(tabId, {
-      pathname,
+      groupName,
 
       deserialized,
       queryInfo,

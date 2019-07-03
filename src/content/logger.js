@@ -1,7 +1,7 @@
-chrome.runtime.onMessage.addListener(({ pathname, ...restData }) => {
-  console.groupCollapsed(pathname);
+chrome.runtime.onMessage.addListener(({ groupName, ...restData }) => {
+  console.groupCollapsed(groupName);
   Object.entries(restData).forEach(([key, value]) => {
     console.log(`${key}: `, value);
   });
-  console.groupEnd(pathname);
+  console.groupEnd(groupName);
 });

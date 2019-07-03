@@ -21,7 +21,7 @@ module.exports = browser => {
 
     const [groupTextStart, data, queryInfo, timeMs, groupTextEnd] = values;
 
-    t.eq(groupTextStart, "/jsapi3/entity", "group start");
+    t.eq(groupTextStart, "GET /jsapi3/entity", "group start");
     t.eq(
       data,
       {
@@ -44,7 +44,7 @@ module.exports = browser => {
       "query info "
     );
     t.ok(timeMs, "time ms");
-    t.eq(groupTextEnd, "/jsapi3/entity", "group end");
+    t.eq(groupTextEnd, "GET /jsapi3/entity", "group end");
 
     await page.evaluate(async () => {
       await fetch(

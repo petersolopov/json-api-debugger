@@ -1,5 +1,6 @@
 export const nonPassedRequest = {
   request: {
+    method: "GET",
     url: "https://site.ru/api/0.1/metro/4/"
   }
 };
@@ -8,6 +9,7 @@ export const passedRequest = {
   startedDateTime: "2019-06-26T19:21:42.184Z",
   time: 19,
   request: {
+    method: "GET",
     url:
       "https://site.ru/jsapi3/0.1/metro/4/?include=lines.stations%2Cstations%2Cdistricts.stations"
   },

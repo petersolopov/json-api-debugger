@@ -26,9 +26,9 @@ test("onMessageCb should call tabs.sendMessage if url matched", async t => {
   t.equal(fake.callCount, 1, "one times");
   t.equal(fake.args[0][0], "2", "with correct tabId");
   t.equal(
-    fake.args[0][1].pathname,
-    "/jsapi3/0.1/metro/4/",
-    "with correct pathname"
+    fake.args[0][1].groupName,
+    "GET /jsapi3/0.1/metro/4/",
+    "with correct groupName"
   );
   t.equal(
     fake.args[0][1].deserialized,

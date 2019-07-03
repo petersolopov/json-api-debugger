@@ -12,8 +12,8 @@ class App extends Component {
   constructor(...args) {
     super(...args);
     this.state = {};
-    storageSync.get("regexps").then(({ regexps }) => {
-      this.setState({ regexps });
+    storageSync.get(["regexps", "turnedOn"]).then(({ regexps, turnedOn }) => {
+      this.setState({ regexps, turnedOn });
     });
   }
 
@@ -23,11 +23,16 @@ class App extends Component {
   };
 
   save = () => {
+    const { turnedOn } = this.state;
     const regexps = this.state.regexps.filter(Boolean);
-    chrome.storage.sync.set({ regexps });
+
+    chrome.storage.sync.set({
+      regexps,
+      turnedOn
+    });
   };
 
-  handleInputChange = event => {
+  handleRegexpChange = event => {
     const { name, value } = event.target;
 
     const index = Number(name.split(".")[1]);
@@ -46,12 +51,20 @@ class App extends Component {
     );
   };
 
-  render(props, { regexps = [] }) {
+  handleTurnedOnChange = event => {
+    const { checked } = event.target;
+    this.setState({ turnedOn: checked }, this.save);
+  };
+
+  render(props, { regexps = [], turnedOn }) {
     // prettier-ignore
     return html`
       <div class="app">
-        <${Header} />
+        <h1>Options</h1>
         <form id="form">
+          <input type="checkbox" id="listen" checked=${turnedOn} onChange=${this.handleTurnedOnChange}/>
+          <label for="listen">Listen Network</label>
+          <${Header} />
           ${regexps.map(
             (regexp, index) => html`
               <div>
@@ -60,7 +73,7 @@ class App extends Component {
                   placeholder="/(\d+)/jsonapi/"
                   value=${regexp}
                   name=${"regexp." + index}
-                  onInput=${this.handleInputChange}
+                  onInput=${this.handleRegexpChange}
                 />
               </div>
             `
@@ -76,7 +89,7 @@ class App extends Component {
 const Header = () =>
   html`
     <div>
-      <h1>Filter Network</h1>
+      <h3>Filter Network</h3>
       <p>It will debug requests filtered by regexp:</p>
     </div>
   `;

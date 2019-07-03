@@ -2,19 +2,23 @@ import { deserialise } from "../../node_modules/kitsu-core/lib/index.mjs";
 import { createQueryInfo } from "../utils/createQueryInfo.mjs";
 import storageSync from "../utils/storageSync.mjs";
 
+export const DEFAULT_STORAGE_DATA = {
+  regexps: ["/jsapi3/", "/api/edge/"],
+  turnedOn: true
+};
+
 export const onInstalledCb = () => {
-  const regexps = ["/jsapi3/", "/api/edge/"];
-  chrome.storage.sync.set({ regexps });
+  chrome.storage.sync.set(DEFAULT_STORAGE_DATA);
 };
 
 export const onMessageCb = async ({ tabId, payload }) => {
-  const { regexps } = await storageSync.get("regexps");
+  const { regexps, turnedOn } = await storageSync.get(["regexps", "turnedOn"]);
   const { request, body, time: timeMs } = payload;
   const { url, method } = request;
 
   const shouldLog = regexps.some(regexp => new RegExp(regexp).test(url));
 
-  if (!shouldLog) {
+  if (!shouldLog || !turnedOn) {
     return;
   }
 

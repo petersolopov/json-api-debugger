@@ -3,27 +3,29 @@ import * as chrome from "./helpers/chrome.mock.mjs";
 import { test } from "../../node_modules/zora/dist/bundle/index.mjs";
 import {
   onInstalledCb,
-  onMessageCb
+  onMessageCb,
+  DEFAULT_STORAGE_DATA
 } from "../../src/background/background.mjs";
 import * as utils from "./helpers/utils.mjs";
 import { nonPassedRequest, passedRequest } from "./fixtures/requests.mjs";
 
-test("onInstalledCb should add regexps to storage after install", t => {
+test("onInstalledCb should add regexps and turnedOn to storage after install", t => {
   chrome.reset();
   onInstalledCb();
   const storage = chrome.fakeStorage.get();
-  t.equal({ regexps: ["/jsapi3/", "/api/edge/"] }, storage);
+  t.equal({ regexps: ["/jsapi3/", "/api/edge/"], turnedOn: true }, storage);
 });
 
-test("onMessageCb should call tabs.sendMessage if url matched", async t => {
+test("onMessageCb should call tabs.sendMessage if url matched and listen network turned on", async t => {
+  chrome.reset().storage.sync.set(DEFAULT_STORAGE_DATA);
   const fake = utils.fakeFn();
-  chrome.reset().tabs.sendMessage = fake;
+  chrome.getChrome().tabs.sendMessage = fake;
 
   await onMessageCb({ tabId: "1", payload: nonPassedRequest });
   await onMessageCb({ tabId: "2", payload: passedRequest });
 
   t.equal(fake.called, true, "ok");
-  t.equal(fake.callCount, 1, "one times");
+  t.equal(fake.callCount, 1, "one time");
   t.equal(fake.args[0][0], "2", "with correct tabId");
   t.equal(
     fake.args[0][1].groupName,
@@ -60,4 +62,9 @@ test("onMessageCb should call tabs.sendMessage if url matched", async t => {
   );
 
   t.equal(fake.args[0][1].timeMs, 19, "with correct timeMs");
+
+  chrome.getChrome().storage.sync.set({ turnedOn: false });
+  await onMessageCb({ tabId: "2", payload: passedRequest });
+
+  t.equal(fake.callCount, 1, "still one time");
 });

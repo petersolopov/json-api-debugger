@@ -10,8 +10,8 @@
     "build:zip": "zip -r json_api_debugger.zip manifest.json icons src node_modules/kitsu-core/lib/index.mjs node_modules/preact/dist/preact.mjs node_modules/htm/dist/htm.mjs",
     "build:clean": "rm -rf json_api_debugger.zip",
     "lint": "eslint --ext .mjs,.js src tests",
-    "prettier:check": "prettier --check src/**/* tests/**/*",
-    "prettier:write": "prettier --write src/**/* tests/**/*"
+    "prettier:check": "prettier --check '{src,tests}/**/*'",
+    "prettier:write": "prettier --write '{src,tests}/**/*'"
   },
   "keywords": [
     "json api",

@@ -6,40 +6,32 @@ export const nonPassedRequest = {
 };
 
 export const passedRequest = {
-  startedDateTime: "2019-06-26T19:21:42.184Z",
   time: 19,
   request: {
     method: "GET",
-    url:
-      "https://site.ru/jsapi3/0.1/metro/4/?include=lines.stations%2Cstations%2Cdistricts.stations"
+    url: "https://site.ru/jsapi3/0.1/town/1/?include=town.region.country"
   },
   response: {
-    status: 200,
-    statusText: "OK",
     content: {
-      size: 54813,
-      mimeType: "application/json",
-      compression: 48614
+      mimeType: "application/json"
     }
   },
   body: JSON.stringify({
-    data: [
-      {
-        id: "1",
-        type: "town",
-        attributes: {
-          name: "Moscow"
-        },
-        relationships: {
-          region: {
-            data: {
-              id: "2",
-              type: "region"
-            }
+    data: {
+      id: "1",
+      type: "town",
+      attributes: {
+        name: "Moscow"
+      },
+      relationships: {
+        region: {
+          data: {
+            id: "2",
+            type: "region"
           }
         }
       }
-    ],
+    },
     included: [
       {
         id: "2",

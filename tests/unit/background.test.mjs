@@ -29,35 +29,33 @@ test("onMessageCb should call tabs.sendMessage if url matched and listen network
   t.equal(fake.args[0][0], "2", "with correct tabId");
   t.equal(
     fake.args[0][1].groupName,
-    "GET /jsapi3/0.1/metro/4/",
+    "GET /jsapi3/0.1/town/1/",
     "with correct groupName"
   );
   t.equal(
     fake.args[0][1].deserialized,
     {
-      data: [
-        {
-          id: "1",
-          type: "town",
-          name: "Moscow",
-          region: {
-            id: "2",
-            type: "region",
-            name: "Moscow region",
-            country: {
-              id: "3",
-              type: "country",
-              name: "Russia"
-            }
+      data: {
+        id: "1",
+        type: "town",
+        name: "Moscow",
+        region: {
+          id: "2",
+          type: "region",
+          name: "Moscow region",
+          country: {
+            id: "3",
+            type: "country",
+            name: "Russia"
           }
         }
-      ]
+      }
     },
-    "with correct deserialized"
+    "with correct response"
   );
   t.equal(
     fake.args[0][1].queryInfo,
-    { include: ["lines.stations", "stations", "districts.stations"] },
+    { include: ["town.region.country"] },
     "with correct queryInfo"
   );
 

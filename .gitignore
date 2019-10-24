@@ -1,5 +1,6 @@
 # Dependencies
 node_modules/
+json_api_debugger/
 
 # Logs
 npm-debug.log*

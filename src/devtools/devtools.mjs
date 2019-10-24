@@ -1,3 +1,5 @@
+import isJsonMimeType from "../utils/isJsonMimeType.mjs";
+
 export const onRequestFinishedCb = request => {
   const { content } = request.response;
 
@@ -5,7 +7,7 @@ export const onRequestFinishedCb = request => {
     return;
   }
 
-  if (!/application\/.*json/.test(content.mimeType)) {
+  if (!isJsonMimeType(content.mimeType)) {
     return;
   }
 

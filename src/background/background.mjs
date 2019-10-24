@@ -1,14 +1,31 @@
 import { deserialise } from "../../node_modules/kitsu-core/lib/index.mjs";
 import { createQueryInfo } from "../utils/createQueryInfo.mjs";
 import storageSync from "../utils/storageSync.mjs";
+import isJsonMimeType from "../utils/isJsonMimeType.mjs";
 
 export const DEFAULT_STORAGE_DATA = {
   regexps: ["/jsapi3/", "/api/edge/"],
   turnedOn: true
 };
 
-export const onInstalledCb = () => {
-  chrome.storage.sync.set(DEFAULT_STORAGE_DATA);
+function getResponse(body) {
+  const parsedBody = JSON.parse(body);
+  return deserialise(parsedBody);
+}
+
+function getRequestBody(request) {
+  const { postData, bodySize } = request;
+
+  if (!bodySize || !isJsonMimeType(postData.mimeType)) {
+    return null;
+  }
+
+  const parsedBody = JSON.parse(postData.text);
+  return deserialise(parsedBody);
+}
+
+export const onInstalledCb = async () => {
+  await chrome.storage.sync.set(DEFAULT_STORAGE_DATA);
 };
 
 export const onMessageCb = async ({ tabId, payload }) => {
@@ -23,16 +40,16 @@ export const onMessageCb = async ({ tabId, payload }) => {
   }
 
   try {
-    const parsedBody = JSON.parse(body);
-    const deserialized = await deserialise(parsedBody);
+    const response = await getResponse(body);
+    const requestBody = await getRequestBody(request);
     const { pathname } = new URL(url);
     const queryInfo = createQueryInfo(url);
     const groupName = `${method} ${pathname}`;
 
     chrome.tabs.sendMessage(tabId, {
       groupName,
-
-      deserialized,
+      ...(requestBody ? { request: requestBody } : null),
+      response,
       queryInfo,
       timeMs
     });
